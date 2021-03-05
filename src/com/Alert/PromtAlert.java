@@ -1,0 +1,51 @@
+package com.Alert;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class PromtAlert {
+
+	public static void main(String[] args) throws InterruptedException {
+		WebDriver driver;
+		String GeckoDriverPath="E:\\Training\\PeopleNTech\\BITM Batch 1\\Tools\\geckodriver.exe";
+		String TestUrl="https://the-internet.herokuapp.com/javascript_alerts";
+
+		//gecko driver path set
+		System.setProperty("webdriver.gecko.driver", GeckoDriverPath);		
+		//Launch Firefox
+		driver =new FirefoxDriver();
+
+		// Open URL
+		driver.get(TestUrl);
+
+		WebElement button=driver.findElement(By.xpath("/html/body/div[2]/div/div/ul/li[3]/button"));
+
+		button.click();
+		Thread.sleep(5000);
+
+		String AlertMessage=driver.switchTo().alert().getText();
+		System.out.println(AlertMessage);
+
+		String input="Selenium Automation 2";
+
+		driver.switchTo().alert().sendKeys(input);
+
+		driver.switchTo().alert().accept();
+
+		String ExpectedText="You entered: ".concat(input);
+
+		String OutPut=driver.findElement(By.id("result")).getText();
+		System.out.println(OutPut);
+
+        if(ExpectedText.equals(OutPut)) {
+        	System.out.println("pass");
+        }
+        else {
+        	System.out.println("Fail");
+        }
+
+	}
+
+}
